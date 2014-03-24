@@ -34,6 +34,12 @@ Route::get('/portfolio', function()
 Route::get('/rolldice/{guess?}', function($guess = 0)
 {
 	$rand = mt_rand(1, 6);
-	$data = array("guess" => $guess, "rand" => $rand);
+	if ($rand == $guess) {
+		$result = 'You guessed correctly!';
+	} else {
+		$result = "You guessed wrong!";
+	}
+	
+	$data = array("guess" => $guess, "rand" => $rand, 'result' => $result);
 	return View::make('roll-dice')->with($data);
 });
