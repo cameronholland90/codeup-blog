@@ -18,15 +18,8 @@ Route::get('/', function()
 
 Route::get('/sayhello/{name}', function($name)
 {
-    if ($name == "Chris")
-    {
-        return Redirect::to('/');
-    }
-    else
-    {
-        return "Hello, $name!";
-    }
-});	
+    return View::make('my-first-view')->with('name', $name);
+});
 
 Route::get('/resume', function()
 {
@@ -36,4 +29,10 @@ Route::get('/resume', function()
 Route::get('/portfolio', function()
 {
 	return "This is my portfolio.";
+});
+
+Route::get('/rolldice', function()
+{
+	$rand = mt_rand(1, 6);
+	return View::make('roll-dice')->with('rand', $rand);
 });
