@@ -31,7 +31,7 @@ Route::get('/portfolio', function()
 	return "This is my portfolio.";
 });
 
-Route::get('/rolldice/{guess}', function($guess)
+Route::get('/rolldice/{guess?}', function($guess = 0)
 {
 	$rand = mt_rand(1, 6);
 	$data = array("guess" => $guess, "rand" => $rand);
