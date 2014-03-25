@@ -21,15 +21,10 @@ Route::get('/sayhello/{name}', function($name)
     return View::make('my-first-view')->with('name', $name);
 });
 
-Route::get('/resume', function()
-{
-	return "This is my resume.";
-});
+Route::get('/resume', 'HomeController@showResume');
 
-Route::get('/portfolio', function()
-{
-	return "This is my portfolio.";
-});
+
+Route::get('/portfolio', 'HomeController@showPortfolio');
 
 Route::get('/rolldice/{guess?}', function($guess = 0)
 {
