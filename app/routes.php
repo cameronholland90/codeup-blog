@@ -23,6 +23,7 @@ Route::get('/sayhello/{name}', function($name)
 
 Route::get('/resume', 'HomeController@showResume');
 
+Route::resource('posts', 'PostsController');
 
 Route::get('/portfolio', 'HomeController@showPortfolio');
 
