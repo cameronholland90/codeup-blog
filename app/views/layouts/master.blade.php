@@ -6,9 +6,9 @@
     <link href="../bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 	<script src="../bootstrap/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-	<link rel="stylesheet" type="text/css" href="css/carousel.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/carousel.css"/>
+	<link rel="stylesheet" type="text/css" href="/stylesheet.css">
 	<link rel="shortcut icon" href="img/Arches v2-6.jpg" />
 	@yield('tab-title')
 </head>
