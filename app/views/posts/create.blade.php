@@ -16,9 +16,13 @@
 		    <div class='form-group'>
 		        <label class="col-sm-2 control-label" for="body">* Body: </label>
 		        <div class="col-sm-10">
-		        	<textarea class="form-control" id="body" name="body" type="text" autofocus = "autofocus" placeholder="Body" value="{{{ Input::old('body') }}}"></textarea>
+		        	<textarea class="form-control" id="body" name="body" type="text" autofocus = "autofocus" placeholder="Body">{{{ Input::old('body') }}}</textarea>
 		    	</div>
 		    </div>
+
+		    <div class="col-sm-10">
+	        	<button class="btn btn-default" type="submit">Add</button>
+	    	</div>
     	</form>
     </div>
 
