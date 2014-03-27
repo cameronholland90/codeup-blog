@@ -4,28 +4,38 @@
 	<title>Test Form</title>
 
 @section('content')
-    <div class='container main-container'>
-    	<form method='POST' action='{{{ action('PostsController@store') }}}' class='form-horizontal'>
-    		<div class='form-group'>
-    			{{ $errors->has('title') ? $errors->first('title', '<p><span class="help-block">:message</span></p>') : '' }}
-		        <label class="col-sm-2 control-label" for="title">* Title: </label>
-		        <div class="col-sm-10">
-		        	<input class="form-control" id="title" name="title" type="text" autofocus = "autofocus" placeholder="Title" value="{{{ Input::old('title') }}}">
-		    	</div>
-		    </div>
-
-		    <div class='form-group'>
-		    	{{ $errors->has('body') ? $errors->first('body', '<p><span class="help-block">:message</span></p>') : '' }}
-		        <label class="col-sm-2 control-label" for="body">* Body: </label>
-		        <div class="col-sm-10">
-		        	<textarea class="form-control" id="body" name="body" type="text" placeholder="Body">{{{ Input::old('body') }}}</textarea>
-		    	</div>
-		    </div>
-
-		    <div class="col-sm-10">
-	        	<button class="btn btn-default" type="submit">Add</button>
-	    	</div>
-    	</form>
+	<div class='container main-container'>
+		@if ($edit)
+    		{{ Form::open(array('action' => array('PostsController@update', $post['id']), 'class' => 'form-horizontal', 'method' => 'put')) }}
+    	@else
+    		{{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
+    	@endif
+    	<div class='form-group'>
+    		{{ $errors->has('title') ? $errors->first('title', '<p><span class="help-block">:message</span></p>') : '' }}
+	    	{{ Form::label('title', 'Title', array('class' => 'col-sm-2 control-label')) }}
+	    	<div class='col-sm-10'>
+	    		@if ($edit)
+					{{ Form::text('title', $post->title, array('class' => 'form-control', 'placeholder' => 'Title')) }}
+				@else
+					{{ Form::text('title', null, array('class' => 'form-control', 'placeholder' => 'Title')) }}
+				@endif
+			</div>
+		</div>
+		<div class='form-group'>
+			{{ $errors->has('body') ? $errors->first('body', '<p><span class="help-block">:message</span></p>') : '' }}
+			{{ Form::label('body', 'Body', array('class' => 'col-sm-2 control-label')) }}
+			<div class='col-sm-10'>
+				@if ($edit)
+					{{ Form::textarea('body', $post->body, array('class' => 'form-control', 'placeholder' => 'Body')) }}
+				@else
+					{{ Form::textarea('body', null, array('class' => 'form-control', 'placeholder' => 'Body')) }}
+				@endif
+			</div>
+		</div>
+		<div class='col-sm-10'>
+			{{ Form::submit('Add', array('class' => 'btn btn-default')); }}
+		</div>
+		{{ Form::close() }}
     </div>
 
 @stop
