@@ -30,17 +30,24 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$temp = Input::all();
+	    // create the validator
+	    $validator = Validator::make(Input::all(), Post::$rules);
 
-		if (empty($temp['title']) || empty($temp['body'])) {
-			return Redirect::back()->withInput();
-		} else {
-			$post = new Post();
-			$post->title = $temp['title'];
-			$post->body = $temp['body'];
+	    // attempt validation
+	    if ($validator->fails())
+	    {
+	        // validation failed, redirect to the post create page with validation errors and old inputs
+	        return Redirect::back()->withInput()->withErrors($validator);
+	    }
+	    else
+	    {
+	        // validation succeeded, create and save the post
+	        $post = new Post();
+			$post->title = Input::get('title');
+			$post->body = Input::get('body');
 			$post->save();
 			return View::make('posts.show')->with('post', $post);
-		}
+	    }
 	}
 
 	/**
