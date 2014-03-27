@@ -9,7 +9,8 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		return "This is the index function";
+		$posts = Post::all();
+		return View::make('posts.index')->with('posts', $posts);
 	}
 
 	/**
@@ -29,7 +30,17 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		return Redirect::back()->withInput();
+		$temp = Input::all();
+
+		if (empty($temp['title']) || empty($temp['body'])) {
+			return Redirect::back()->withInput();
+		} else {
+			$post = new Post();
+			$post->title = $temp['title'];
+			$post->body = $temp['body'];
+			$post->save();
+			return View::make('posts.show')->with('post', $post);
+		}
 	}
 
 	/**
@@ -40,7 +51,8 @@ class PostsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		return "This is the show function";
+		$data = Post::find($id);
+		return View::make('posts.show')->with('post', $data);
 	}
 
 	/**
