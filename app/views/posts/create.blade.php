@@ -10,6 +10,14 @@
     	@else
     		{{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
     	@endif
+
+    	@if (Session::has('successMessage'))
+		    <div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+		@endif
+		@if (Session::has('errorMessage'))
+		    <div class="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+		@endif
+
     	<div class='form-group'>
     		{{ $errors->has('title') ? $errors->first('title', '<p><span class="help-block">:message</span></p>') : '' }}
 	    	{{ Form::label('title', 'Title', array('class' => 'col-sm-2 control-label')) }}
@@ -37,5 +45,7 @@
 		</div>
 		{{ Form::close() }}
     </div>
+    {{ Session::forget('successMessage'); }}
+    {{ Session::forget('errorMessage'); }}
 
 @stop
