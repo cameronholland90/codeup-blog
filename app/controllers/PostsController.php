@@ -2,6 +2,15 @@
 
 class PostsController extends \BaseController {
 
+	public function __construct()
+	{
+	    // call base controller constructor
+	    parent::__construct();
+
+	    // run auth filter before all methods on this controller except index and show
+	    $this->beforeFilter('auth.basic', array('except' => array('index', 'show')));
+	}
+	
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -115,6 +124,7 @@ class PostsController extends \BaseController {
 	public function destroy($id)
 	{
 		$post = Post::find($id)->delete();
+		Session::flash('successMessage', 'Your post was deleted');
 		return Redirect::action('PostsController@index');
 	}
 

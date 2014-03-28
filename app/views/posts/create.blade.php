@@ -12,10 +12,10 @@
     	@endif
 
     	@if (Session::has('successMessage'))
-		    <div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
 		@endif
 		@if (Session::has('errorMessage'))
-		    <div class="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+		    <div class="alert alert-danger dif-col">{{{ Session::get('errorMessage') }}}</div>
 		@endif
 
     	<div class='form-group'>

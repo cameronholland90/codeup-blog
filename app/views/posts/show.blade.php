@@ -7,10 +7,10 @@
     <div class='container main-container'>
     	<h1>Specific Post</h1>
     	@if (Session::has('successMessage'))
-		    <div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
 		@endif
 		@if (Session::has('errorMessage'))
-		    <div class="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+		    <div class="alert alert-danger dif-col">{{{ Session::get('errorMessage') }}}</div>
 		@endif
     	<h3>{{{ $post->title }}}<br><small>Posted on {{ $post->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i A'); }}</small></h3>
     	<p> {{{ $post->body }}} </p>

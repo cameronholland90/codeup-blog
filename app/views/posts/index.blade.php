@@ -7,10 +7,10 @@
     <div class='container main-container'>
     	<h1>All Post</h1>
     	@if (Session::has('successMessage'))
-		    <div class="alert alert-success">{{{ Session::get('successMessage') }}}</div>
+		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
 		@endif
 		@if (Session::has('errorMessage'))
-		    <div class="alert alert-danger">{{{ Session::get('errorMessage') }}}</div>
+		    <div class="alert alert-danger dif-col">{{{ Session::get('errorMessage') }}}</div>
 		@endif
     	@foreach ($posts as $post)
     		<h3><a href="{{{ action('PostsController@show', $post->id) }}}">{{{ $post->title }}}</a><br><small>Posted on {{ $post->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i A'); }}</small></h3>
