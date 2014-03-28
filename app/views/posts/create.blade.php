@@ -33,7 +33,7 @@
 			</div>
 		</div>
 		<div class='col-sm-10'>
-			{{ Form::submit('Add', array('class' => 'btn btn-default')); }}
+			{{ Form::submit('Save Post', array('class' => 'btn btn-default')); }}
 		</div>
 		{{ Form::close() }}
     </div>

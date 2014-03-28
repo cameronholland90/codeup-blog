@@ -8,9 +8,22 @@
     	<h1>Specific Post</h1>
     	<h3>{{{ $post->title }}}</h3>
     	<p> {{{ $post->body }}} </p>
-    	<a href="{{{ action('PostsController@edit', $post->id) }}}">Edit</a><br>
+
+    	<a href="#" id='btnDeletePost'>Delete</a> | <a href="{{{ action('PostsController@edit', $post->id) }}}">Edit</a><br>
     	<a href="{{{ action('PostsController@index') }}}">Back to all Posts</a>
+
+    	{{ Form::open(array('action' => array('PostsController@destroy', $post->id), 'method' => 'delete', 'id' => 'formDeletePost')) }}
+    	{{ Form::close() }}
     </div>
 
+@section('bottom-script')
+	<script>
+		$('#btnDeletePost').on('click', function(e) {
+			e.preventDefault();
+			if (confirm('Are you sure you want to delete this post?')) {
+				$('#formDeletePost').submit();
+			};
+		});
+	</script>
 
 @stop

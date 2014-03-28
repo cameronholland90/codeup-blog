@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="navbar-header">
-					<a href="/" class="navbar-brand">CameronHolland.me</a>
+					<a href="/resume" class="navbar-brand">CameronHolland.me</a>
 					<button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -46,5 +46,7 @@
 	</div>
 	<!-- end navbar -->
 	@yield('content')
+
+	@yield('bottom-script')
 </body>
 </html>
