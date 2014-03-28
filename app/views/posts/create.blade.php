@@ -6,7 +6,7 @@
 @section('content')
 	<div class='container main-container'>
 		@if ($edit)
-    		{{ Form::open(array('action' => array('PostsController@update', $post['id']), 'class' => 'form-horizontal', 'method' => 'put')) }}
+    		{{ Form::open(array('action' => array('PostsController@update', $post->id), 'class' => 'form-horizontal', 'method' => 'put')) }}
     	@else
     		{{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
     	@endif

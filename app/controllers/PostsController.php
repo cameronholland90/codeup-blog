@@ -9,7 +9,7 @@ class PostsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$posts = Post::all();
+		$posts = Post::paginate(4);
 		return View::make('posts.index')->with('posts', $posts);
 	}
 
@@ -28,8 +28,10 @@ class PostsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store($id = null)
 	{
+		$post = new Post();
+
 	    // create the validator
 	    $validator = Validator::make(Input::all(), Post::$rules);
 
@@ -42,7 +44,7 @@ class PostsController extends \BaseController {
 	    else
 	    {
 	        // validation succeeded, create and save the post
-	        $post = new Post();
+	        
 			$post->title = Input::get('title');
 			$post->body = Input::get('body');
 			$post->save();
