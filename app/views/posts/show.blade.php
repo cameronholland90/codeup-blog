@@ -12,7 +12,7 @@
 		@if (Session::has('errorMessage'))
 		    <div class="alert alert-danger dif-col">{{{ Session::get('errorMessage') }}}</div>
 		@endif
-    	<h3>{{{ $post->title }}}<br><small>Posted on {{ $post->created_at->setTimezone('America/Chicago')->format('l, F jS Y @ h:i A'); }}</small></h3>
+    	<h3>{{{ $post->title }}}<br><small>Posted on {{ $post->created_at->format('l, F jS Y @ h:i A'); }}</small></h3>
     	<p> {{{ $post->body }}} </p>
 
     	<a href="#" id='btnDeletePost'>Delete</a> | <a href="{{{ action('PostsController@edit', $post->id) }}}">Edit</a><br>
