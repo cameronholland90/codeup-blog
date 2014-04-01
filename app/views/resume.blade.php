@@ -3,8 +3,10 @@
 @section('tab-title')
 	<title>Resume</title>
 
-@section('content')
-    <!-- Carousel
+@stop
+
+@section('carousel')
+	<!-- Carousel
     ================================================== -->
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
@@ -48,7 +50,9 @@
       <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
     </div><!-- /.carousel -->
 
-    <div class='container main-container'>
+@stop
+
+@section('content')
 		<div class="page-header">
 			<h1><img src="img/Arches v2-6.jpg" alt="Head Shot" class="img-circle" style="vertical-align: baseline;">Cameron Holland <small>Junior Software Developer</small></h1>
 		</div>
@@ -122,6 +126,6 @@
 			</div>
 			<div class='col-md-2'>August 2004 – May 2008</div>
 		</div>
-	</div>
+	
 	
 @stop

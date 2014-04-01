@@ -3,8 +3,9 @@
 @section('tab-title')
 	<title>show.blade.php</title>
 
+@stop
+
 @section('content')
-    <div class='container main-container'>
     	<h1>All Post</h1>
     	@if (Session::has('successMessage'))
 		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
@@ -18,8 +19,5 @@
     	@endforeach
     	{{ $posts->links() }} <br>
     	<a href="{{{ action('PostsController@create') }}}" class='btn btn-success'>Create New</a>
-    	{{ Session::forget('successMessage'); }}
-    	{{ Session::forget('errorMessage'); }}
-    </div>
 
 @stop

@@ -25,11 +25,20 @@
 						<span class="icon-bar"></span>
 					</button>
 				</div>
+				<div class="col-sm-3 col-md-3 navbar-right">
+			        <form class="navbar-form" method="GET" action="{{{ action('PostsController@index') }}}">
+			        <div class="input-group">
+			            <input type="text" class="form-control" placeholder="Search Blog by Keyword" name="search">
+			            <div class="input-group-btn">
+			                <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			            </div>
+			        </div>
+			        </form>
+			    </div>
 				<div class="collapse navbar-collapse navHeaderCollapse nav-pills">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="{{ Request::is('resume') ? 'active' : '' }}"><a href="{{{ action('HomeController@showResume') }}}">Resume</a></li>
+						<li class="{{ Request::is('/') ? 'active' : '' }}"><a href="{{{ action('HomeController@showResume') }}}">Resume</a></li>
 						<li class="{{ Request::is('portfolio') ? 'active' : '' }}"><a href="{{{ action('HomeController@showPortfolio') }}}">Portfolio</a></li>
-						<li class="{{ Request::is('posts') ? 'active' : '' }}"><a href="{{{ action('PostsController@index') }}}">Blog</a></li>
 						<!-- <li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<b class="caret"></b></a>
 							<ul class="dropdown-menu">
@@ -39,13 +48,23 @@
 								<li><a href="whack-a-mole.html">Whack-A-Mole</a></li>
 							</ul>
 						</li> -->
+						<li class="{{ Request::is('posts') ? 'active' : '' }}"><a href="{{{ action('PostsController@index') }}}">Blog</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- end navbar -->
+
+	@yield('carousel')
+
+	<div class='container main-container'>
+
 	@yield('content')
+
+	</div>
+	{{ Session::forget('successMessage'); }}
+    {{ Session::forget('errorMessage'); }}
 
 	@yield('bottom-script')
 </body>

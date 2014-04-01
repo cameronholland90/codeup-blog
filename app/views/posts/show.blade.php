@@ -3,8 +3,9 @@
 @section('tab-title')
 	<title>show.blade.php</title>
 
+@stop
+
 @section('content')
-    <div class='container main-container'>
     	<h1>Specific Post</h1>
     	@if (Session::has('successMessage'))
 		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
@@ -20,9 +21,8 @@
 
     	{{ Form::open(array('action' => array('PostsController@destroy', $post->id), 'method' => 'delete', 'id' => 'formDeletePost')) }}
     	{{ Form::close() }}
-    	{{ Session::forget('successMessage'); }}
-    	{{ Session::forget('errorMessage'); }}
-    </div>
+
+@stop
 
 @section('bottom-script')
 	<script>

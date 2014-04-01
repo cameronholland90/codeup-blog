@@ -3,8 +3,9 @@
 @section('tab-title')
 	<title>Portfolio</title>
 
+@stop
+
 @section('content')
-    <div class='container main-container'>
 		<div class="page-header">
 			<h1>Cameron Holland <small>My Portfolio</small></h1>
 		</div>
@@ -63,6 +64,5 @@
 				<a href="address_book.php" class='btn btn-success btn-sm' disabled='disabled'>Address Book</a>
 			</div>
 		</div>
-	</div>
 
 @stop

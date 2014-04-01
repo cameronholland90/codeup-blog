@@ -2,9 +2,10 @@
 
 @section('tab-title')
 	<title>Test Form</title>
+	
+@stop
 
 @section('content')
-	<div class='container main-container'>
 		@if ($edit)
     		{{ Form::open(array('action' => array('PostsController@update', $post->id), 'class' => 'form-horizontal', 'method' => 'put')) }}
     	@else
@@ -44,8 +45,6 @@
 			{{ Form::submit('Save Post', array('class' => 'btn btn-default')); }}
 		</div>
 		{{ Form::close() }}
-    </div>
-    {{ Session::forget('successMessage'); }}
-    {{ Session::forget('errorMessage'); }}
+    
 
 @stop
