@@ -11,10 +11,18 @@
 |
 */
 
+Route::get('/login', 'UsersController@showLogin');
+
+Route::get('/logout', 'UsersController@logout');
+
+Route::post('/login', 'UsersController@doLogin');
+
 Route::get('/', 'HomeController@showResume');
 
 Route::get('/resume', 'HomeController@showResume');
 
 Route::resource('posts', 'PostsController');
+
+Route::resource('users', 'UsersController');
 
 Route::get('/portfolio', 'HomeController@showPortfolio');

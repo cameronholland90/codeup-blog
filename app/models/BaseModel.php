@@ -6,12 +6,12 @@ class BaseModel extends Eloquent {
 
 	public function getCreatedAtAttribute($value) {
 		$utc = Carbon::createFromFormat($this->getDateFormat(), $value);
-		return $utc->setTimezone('America/Chicago');
+		return $utc->setTimezone(Config::get('app.localTimezone'));
 	}
 
 	public function getUpdatedAtAttribute($value) {
 		$utc = Carbon::createFromFormat($this->getDateFormat(), $value);
-		return $utc->setTimezone('America/Chicago');
+		return $utc->setTimezone(Config::get('app.localTimezone'));
 	}
 
 }

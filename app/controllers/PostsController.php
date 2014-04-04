@@ -8,7 +8,8 @@ class PostsController extends \BaseController {
 	    parent::__construct();
 
 	    // run auth filter before all methods on this controller except index and show
-	    $this->beforeFilter('auth.basic', array('except' => array('index', 'show')));
+	    $this->beforeFilter('role_type', array('except' => array('index', 'show')));
+	    $this->beforeFilter('auth', array('except' => array('index', 'show')));
 	}
 	
 	/**
@@ -20,9 +21,9 @@ class PostsController extends \BaseController {
 	{
 		$search = Input::get('search');
 		if (is_null($search)) {
-			$data = Post::orderBy('created_at', 'desc')->paginate(4);
+			$data = Post::with('User')->orderBy('created_at', 'desc')->paginate(4);
 		} else {
-			$data = Post::where('title', 'LIKE', "%$search%")->orWhere('body', 'LIKE', "%$search%")->orderBy('created_at', 'desc')->paginate(4);
+			$data = Post::with('User')->where('title', 'LIKE', "%$search%")->orWhere('body', 'LIKE', "%$search%")->orderBy('created_at', 'desc')->paginate(4);
 		}
 		return View::make('posts.index')->with('posts', $data);
 	}
@@ -42,12 +43,13 @@ class PostsController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store($id = null)
+	public function store()
 	{
 		$post = new Post();
 
 	    // create the validator
 	    $validator = Validator::make(Input::all(), Post::$rules);
+	    Log::info(Input::all());
 
 	    // attempt validation
 	    if ($validator->fails())
@@ -62,6 +64,14 @@ class PostsController extends \BaseController {
 	        Session::flash('successMessage', 'Your post was saved');
 			$post->title = Input::get('title');
 			$post->body = Input::get('body');
+			if (Input::hasFile('image')) {
+				$imagePath = 'uploads/';
+				$imageExtension = Input::file('image')->getClientOriginalExtension();
+				$imageName = uniqid() . '.' . $imageExtension;
+				Input::file('image')->move($imagePath, $imageName);
+				$post->image_location = 'uploads/' . $imageName;
+			}
+			$post->user_id = Auth::user()->id;
 			$post->save();
 			return View::make('posts.show')->with('post', $post);
 	    }
@@ -114,6 +124,15 @@ class PostsController extends \BaseController {
 	        // validation succeeded, create and save the post
 	        $post = Post::find($id);
 			$post->title = Input::get('title');
+			if (Input::hasFile('image')) {
+				$oldImage = $post->image_location;
+				File::delete($oldImage);
+				$imagePath = 'uploads/';
+				$imageExtension = Input::file('image')->getClientOriginalExtension();
+				$imageName = uniqid() . '.' . $imageExtension;
+				Input::file('image')->move($imagePath, $imageName);
+				$post->image_location = 'uploads/' . $imageName;
+			}
 			$post->body = Input::get('body');
 			$post->save();
 			return View::make('posts.show')->with('post', $post);
@@ -128,7 +147,10 @@ class PostsController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		$post = Post::find($id)->delete();
+		$post = Post::find($id);
+		$oldImage = $post->image_location;
+		File::delete($oldImage);
+		$post->delete();
 		Session::flash('successMessage', 'Your post was deleted');
 		return Redirect::action('PostsController@index');
 	}

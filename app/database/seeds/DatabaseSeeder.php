@@ -23,8 +23,12 @@ class UserTableSeeder extends Seeder {
         DB::table('users')->delete();
 
         $user = new User();
-        $user->email = 'admin@codeup.com';
-        $user->password = Hash::make('adminPass123!');
+        $user->email = 'cameron@codeup.com';
+        $user->password = 'adminPass123!';
+        $user->username = 'cameronholland90';
+        $user->first_name = 'Cameron';
+        $user->last_name = 'Holland';
+        $user->role = 'Admin';
         $user->save();
     }
 

@@ -38,6 +38,37 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::guest('login');
 });
 
+Route::filter('edit_user', function()
+{
+	if (Auth::check() && Auth::user()->role != 'Admin') {
+		$user = Request::segment(2);
+		if (Auth::user()->id != $user) {
+			Session::flash('errorMessage', 'You do not have permission to do that jerk');
+			return Redirect::action('PostsController@index');
+		}
+	} 
+});
+
+Route::filter('admin', function()
+{
+	if (Auth::check() && Auth::user()->role != 'Admin') {
+		Session::flash('errorMessage', 'You do not have permission to do that');
+		return Redirect::action('PostsController@index');
+	}
+});
+
+Route::filter('role_type', function()
+{
+	if (Auth::check() && Auth::user()->role != 'Admin') {
+		$post = Post::find(Request::segment(2));
+		$userId = $post->user_id;
+		if (Auth::user()->id != $userId) {
+			Session::flash('errorMessage', 'You do not have permission to do that');
+			return Redirect::action('PostsController@index');
+		}
+	} 
+});
+
 
 Route::filter('auth.basic', function()
 {

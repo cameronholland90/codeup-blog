@@ -1,16 +1,19 @@
 @extends('layouts.master')
 
 @section('tab-title')
-	<title>Test Form</title>
-	
+	<title>Add Post Form</title>
+
 @stop
 
 @section('content')
 		@if ($edit)
-    		{{ Form::open(array('action' => array('PostsController@update', $post->id), 'class' => 'form-horizontal', 'method' => 'put')) }}
+			<h1>Edit Post</h1>
+    		{{ Form::open(array('action' => array('PostsController@update', $post->id), 'class' => 'form-horizontal', 'method' => 'put', 'files' => true)) }}
     	@else
-    		{{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal')) }}
+			<h1>Create Post</h1>
+    		{{ Form::open(array('action' => 'PostsController@store', 'class' => 'form-horizontal', 'files' => true)) }}
     	@endif
+
 
     	@if (Session::has('successMessage'))
 		    <div class="alert alert-success dif-col">{{{ Session::get('successMessage') }}}</div>
@@ -41,10 +44,29 @@
 				@endif
 			</div>
 		</div>
+		<div class='form-group'>
+			{{ Form::label('tags', 'Tags', array('class' => 'col-sm-2 control-label')) }}
+			<div class='col-sm-10'>
+				{{ Form::textarea('tags', null, array('class' => 'form-control', 'id' => 'tags')) }}
+			</div>
+		</div>
+		<div class='form-group'>
+			{{ Form::label('image', 'Upload Image', array('class' => 'col-sm-2 control-label')) }}
+			<div class='col-sm-10')>
+				{{ Form::file('image') }}
+			</div>
+		</div>
 		<div class='col-sm-10'>
 			{{ Form::submit('Save Post', array('class' => 'btn btn-default')); }}
 		</div>
 		{{ Form::close() }}
+
+@stop
+
+@section('bottom-script')
+	<script>
+		$('#tags').tagsInput();
+	</script>
     
 
 @stop
