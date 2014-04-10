@@ -27,3 +27,5 @@ web1:
     - "php artisan migrate --env=production"
 cache1:
   type: redis
+db1:
+  type: mysql
