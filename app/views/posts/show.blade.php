@@ -23,11 +23,11 @@
     	<p> {{{ $post->body }}} </p>
 
     	@if (Auth::check())
-    		<a href="#" id='btnDeletePost'>Delete</a> | <a href="{{{ action('PostsController@edit', $post->id) }}}">Edit</a><br>
+    		<a href="#" id='btnDeletePost' class='btn-sm btn-danger'>Delete</a> | <a href="{{{ action('PostsController@edit', $post->id) }}}" class='btn-sm btn-primary'>Edit</a><br>
 	    	{{ Form::open(array('action' => array('PostsController@destroy', $post->id), 'method' => 'delete', 'id' => 'formDeletePost')) }}
 	    	{{ Form::close() }}
     	@endif
-    	<a href="{{{ action('PostsController@index') }}}">Back to all Posts</a>
+    	<a href="{{{ action('PostsController@index') }}}" class='btn btn-default'>Back to all Posts</a>
 
     	<div id="disqus_thread"></div>
 	    <script type="text/javascript">
