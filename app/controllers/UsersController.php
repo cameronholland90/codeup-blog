@@ -8,9 +8,9 @@ class UsersController extends \BaseController {
 	    parent::__construct();
 
 	    // run auth filter before all methods on this controller except index and show
-	    $this->beforeFilter('auth', array('except' => array('doLogin', 'showLogin', 'logout')));
-	    $this->beforeFilter('admin', array('except' => array('doLogin', 'showLogin', 'edit', 'logout')));
-	    $this->beforeFilter('edit_user', array('except' => array('doLogin', 'showLogin', 'logout')));
+	    $this->beforeFilter('auth', array('except' => array('doLogin', 'showLogin', 'logout', 'create', 'store')));
+	    $this->beforeFilter('admin', array('except' => array('doLogin', 'showLogin', 'edit', 'logout', 'create', 'store', 'update')));
+	    $this->beforeFilter('edit_user', array('except' => array('doLogin', 'showLogin', 'logout', 'create', 'store', 'update')));
 	}
 
 	/**
@@ -147,13 +147,23 @@ class UsersController extends \BaseController {
 	{
 		$search = Input::get('user_search');
 		if (is_null($search)) {
-			$data = User::orderBy('first_name', 'desc')->paginate(15);
+			$data = User::where('role', '<>', 'Admin')->orderBy('first_name', 'desc')->paginate(15);
 		} else {
-			$data = User::where('first_name', 'LIKE', "%$search%")
-									  ->orWhere('last_name', 'LIKE', "%$search%")
-									  ->orWhere('username', 'LIKE', "%$search%")
-									  ->orWhere('email', 'LIKE', "%$search%")
-									  ->orderBy('created_at', 'desc')->paginate(15);
+			$data = User::where('role', '<>', 'Admin')
+						->where(function($query) use ($search)
+				            {
+				                $query->where('first_name', 'LIKE', "%$search%")
+				                	->orWhere('last_name', 'LIKE', "%$search%")
+									->orWhere('username', 'LIKE', "%$search%")
+									->orWhere('email', 'LIKE', "%$search%");
+				            })
+						->orderBy('created_at', 'desc')->paginate(15);				
+		}
+
+		foreach ($data as $user) {
+			if ($user->role == 'Admin') {
+				unset($data[$user->id]);			
+			}
 		}
 		return View::make('users.index_user')->with('users', $data);
 	}
@@ -177,7 +187,20 @@ class UsersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		if (Auth::user()->id == $id) {
+			Session::flash('errorMessage', "You can't do that");
+			return Redirect::action('UsersController@index');
+		}
+		$user = User::find($id);
+		$posts = Post::where('user_id', '=', $id);
+		if (!empty($posts)) {
+			foreach ($posts as $post) {
+				$post->delete();
+			}
+		}
+		$user->delete();
+		Session::flash('successMessage', 'User was deleted');
+		return Redirect::action('UsersController@index');
 	}
 
 }
